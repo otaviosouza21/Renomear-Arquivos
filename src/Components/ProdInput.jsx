@@ -1,26 +1,27 @@
 import React, { useRef } from "react";
 import style from "../css/Prodinput.module.css";
 
-const ProdInput = ({ codigo, setCodigos, codigos, id }) => {
-  const ref = useRef();
+const ProdInput = ({ relacaoCodigos, setCodigos, codigos, id }) => {
 
-  function handleChange(event) {
-    if (event.key === "Enter") {
-      const novoCodigo = {
-        id: id,
-        codigoInterno: event.target.value,
-        codigoFornecedor: codigo,
-      };
-      setCodigos((prevCodigos) => [...prevCodigos, novoCodigo]);
-    }
-  }
+  React.useEffect(() => {
+    const novoCodigo = {
+      id: id,
+      codigoInterno: relacaoCodigos.legado,
+      codigoFornecedor: relacaoCodigos.fornecedor,
+    };
 
-  console.log(codigos);
+    setCodigos((prevCodigos) => [...prevCodigos, novoCodigo]);
+  }, []);
 
   return (
     <li className={style.input}>
-      <p>{codigo}</p>
-      <input ref={ref} onKeyDown={handleChange} type="text" name="" id="" />
+      <p>{relacaoCodigos.fornecedor}</p>
+      <input
+        value={relacaoCodigos.legado}
+        type="text"
+        name=""
+        id=""
+      />
     </li>
   );
 };
